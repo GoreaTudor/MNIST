@@ -1,7 +1,8 @@
-import keras.src.optimizers.optimizer_v1
 from keras.datasets import mnist
-from keras.models import Sequential
 from keras.layers import Flatten, Dense
+from keras.losses import SparseCategoricalCrossentropy
+from keras.models import Sequential
+from keras.optimizers import Adam
 
 if __name__ == '__main__':
     (train_input, train_expected), (test_input, test_expected) = mnist.load_data()
@@ -17,11 +18,11 @@ if __name__ == '__main__':
     model.add(Dense(units=10, activation="sigmoid"))    # OL
 
     model.compile(
-        # optimizer="SGD",  # learning_rate = 0.01
-        optimizer="adam",  # learning_rate = 0.001
+        # optimizer=SGD(),  # learning_rate = 0.01
+        optimizer=Adam(),  # learning_rate = 0.001
 
-        # loss="mean_squared_error",
-        loss="sparse_categorical_crossentropy",
+        # loss=MeanSquaredError(),
+        loss=SparseCategoricalCrossentropy(),
 
         metrics=["accuracy"]
     )
@@ -36,14 +37,14 @@ if __name__ == '__main__':
 
 
 # BEST Configs:
-# 1. HL(128, relu), OL(softmax), "adam", "sparse_categorical_crossentropy"  --  97.6%
-# 2. HL(128, tanh), OL(sigmoid), "adam", "sparse_categorical_crossentropy"  --  97.4%
-# 3. HL(128, sigmoid), OL(sigmoid), "adam", "sparse_categorical_crossentropy"  --  97.0%
-# 4. HL(128, tanh), OL(sigmoid), "SGD", "sparse_categorical_crossentropy"  --  92.7%
-# 5. HL(128, sigmoid), OL(sigmoid), "SGD", "sparse_categorical_crossentropy"  -- 89.8%
+# 1. HL(128, relu), OL(softmax), Adam, SparseCategoricalCrossentropy  --  97.6%
+# 2. HL(128, tanh), OL(sigmoid), Adam, SparseCategoricalCrossentropy  --  97.5%
+# 3. HL(128, sigmoid), OL(sigmoid), Adam, SparseCategoricalCrossentropy  --  97.0%
+# 4. HL(128, tanh), OL(sigmoid), SGD, SparseCategoricalCrossentropy  --  92.7%
+# 5. HL(128, sigmoid), OL(sigmoid), SGD, SparseCategoricalCrossentropy  -- 89.8%
 
 # WORST Configs:
-# 3. HL(128, tanh), HL(64, tanh), OL(sigmoid), "SGD", "mse"  --  9.3%
-# 1. 2xHL(16, sigmoid), OL(sigmoid), "SGD", "mse"  --  9.8%
-# 2. 2xHL(16, tanh), OL(sigmoid), "SGD", "mse"  --  10.0%
+# 3. HL(128, tanh), HL(64, tanh), OL(sigmoid), SGD, MeanSquaredError  --  9.3%
+# 1. 2xHL(16, sigmoid), OL(sigmoid), SGD, MeanSquaredError  --  9.8%
+# 2. 2xHL(16, tanh), OL(sigmoid), SGD, MeanSquaredError  --  10.0%
 
