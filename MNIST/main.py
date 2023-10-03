@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
     # Build model
     model = Sequential()
-    model.add(Flatten(input_shape=(28, 28, 1)))         # IL
+    model.add(Flatten(input_shape=(28, 28)))            # IL
     model.add(Dense(units=128, activation="tanh"))      # HL
     model.add(Dense(units=10, activation="sigmoid"))    # OL
 
