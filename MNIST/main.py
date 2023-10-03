@@ -10,10 +10,6 @@ if __name__ == '__main__':
     train_input = train_input / 255.0
     test_input = test_input / 255.0
 
-    # Transform from matrix to array
-    train_input = train_input.reshape((-1, 28, 28, 1))
-    test_input = test_input.reshape((-1, 28, 28, 1))
-
     # Build model
     model = Sequential()
     model.add(Flatten(input_shape=(28, 28, 1)))         # IL
