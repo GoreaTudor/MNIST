@@ -1,8 +1,8 @@
 from keras.datasets import mnist
 from keras.layers import Flatten, Dense
-from keras.losses import SparseCategoricalCrossentropy
+from keras.losses import SparseCategoricalCrossentropy, MeanSquaredError
 from keras.models import Sequential
-from keras.optimizers import Adam
+from keras.optimizers import Adam, SGD
 
 if __name__ == '__main__':
     (train_input, train_expected), (test_input, test_expected) = mnist.load_data()
