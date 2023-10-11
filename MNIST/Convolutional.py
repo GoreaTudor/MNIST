@@ -29,6 +29,7 @@ if __name__ == '__main__':
         Conv2D(filters=64, kernel_size=(3, 3), activation="relu"),
         MaxPooling2D(pool_size=(2, 2)),
         Flatten(),
+        Dense(128, activation="relu"),
         Dense(10, activation="softmax")
     ])
 
@@ -39,7 +40,7 @@ if __name__ == '__main__':
     )
 
     # train the model
-    model.fit(train_input, train_expected, epochs=5, batch_size=128, validation_data=(test_input, test_expected))
+    model.fit(train_input, train_expected, epochs=10, batch_size=128, validation_data=(test_input, test_expected))
 
     # test the model
     test_loss, test_acc = model.evaluate(test_input, test_expected)
